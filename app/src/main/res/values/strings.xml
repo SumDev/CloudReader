@@ -11,6 +11,7 @@
     <string name="hello_blank_fragment">Hello blank mFragment</string>
     <string name="title_activity_base">BaseActivity</string>
     <string name="actionbar_search">搜索</string>
+    <string name="actionbar_help_coin">积分规则</string>
     <string name="actionbar_more">更多信息</string>
     <string name="actionbar_webview_share">分享</string>
     <string name="actionbar_webview_cope">复制链接</string>
@@ -76,6 +77,8 @@
     <string name="string_joke">------</string>
     <string name="no_name_joke">匿名用户</string>
     <string name="string_dian">&#160;·&#160;</string>
+    <string name="string_add">+</string>
+    <string name="string_tree_category_size">共%s个子分类</string>
 
     <!--url-->
     <string name="string_url_cloudreader">https://github.com/youlookwhat/CloudReader</string>
@@ -98,5 +101,11 @@
     <string name="string_url_wanandroid">http://www.wanandroid.com/index</string>
     <!--每日推荐-->
     <string name="string_url_trending">https://github.com/trending</string>
-    <string name="string_tree_category_size">共%s个子分类</string>
+    <!--积分规则-->
+    <string name="string_url_coin_help">https://www.wanandroid.com/blog/show/2653</string>
+    <!--赞赏-->
+    <string name="string_url_admire">https://github.com/youlookwhat/CloudReader/blob/master/file/admire.md</string>
+    <string name="string_admire">本项目已累计迭代将近三年，期间很多api失效被替换，和增加了玩安卓的近全部功能，耗费了作者很多心血。
+        \n\n每月的后 7 天，会在侧边栏放置赞助入口；如果您认为本软件内容对你确实产生了帮助，或者喜欢云阅，不防小额赞助一下。这样可以增加我维护本软件的动力，迭代更多实用有趣的功能。
+        \n\n非常感谢！</string>
 </resources>

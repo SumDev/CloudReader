@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" /><!--杀死应用进程-->
 
     <application
-        android:name=".app.CloudReaderApplication"
+        android:name=".app.App"
         android:allowBackup="false"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -97,6 +97,9 @@
             android:name=".ui.menu.NavAboutActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.menu.NavAdmireActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.douban.BookDetailActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -112,11 +115,20 @@
             android:name=".ui.wan.child.MyCollectActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.wan.child.MyCoinActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.wan.child.CategoryDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.menu.SearchActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".view.bigimage.BigImagePagerActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/AppBigImageThem" />
+
     </application>
 
 </manifest>

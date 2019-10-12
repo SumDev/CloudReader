@@ -24,17 +24,17 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.http.utils.CheckNetwork;
-import com.example.jingbin.cloudreader.ui.MainActivity;
 import com.example.jingbin.cloudreader.R;
 import com.example.jingbin.cloudreader.app.Constants;
 import com.example.jingbin.cloudreader.data.UserUtil;
 import com.example.jingbin.cloudreader.data.model.CollectModel;
+import com.example.jingbin.cloudreader.ui.MainActivity;
 import com.example.jingbin.cloudreader.utils.BaseTools;
 import com.example.jingbin.cloudreader.utils.CommonUtils;
+import com.example.jingbin.cloudreader.utils.DebugUtil;
 import com.example.jingbin.cloudreader.utils.DialogBuild;
 import com.example.jingbin.cloudreader.utils.PermissionHandler;
 import com.example.jingbin.cloudreader.utils.RxSaveImage;
@@ -42,7 +42,6 @@ import com.example.jingbin.cloudreader.utils.SPUtils;
 import com.example.jingbin.cloudreader.utils.ShareUtils;
 import com.example.jingbin.cloudreader.utils.ToastUtil;
 import com.example.jingbin.cloudreader.view.statusbar.StatusBarUtil;
-import com.example.jingbin.cloudreader.view.viewbigimage.ViewBigImageActivity;
 import com.example.jingbin.cloudreader.view.webview.config.FullscreenHolder;
 import com.example.jingbin.cloudreader.view.webview.config.IWebPageView;
 import com.example.jingbin.cloudreader.view.webview.config.ImageClickInterface;
@@ -60,7 +59,7 @@ import com.example.jingbin.cloudreader.viewmodel.wan.WanNavigator;
 public class WebViewActivity extends AppCompatActivity implements IWebPageView {
 
     // 进度条
-    private ProgressBar mProgressBar;
+    private WebProgress mProgressBar;
     private WebView webView;
     // 全屏时视频加载view
     private FrameLayout videoFullView;
@@ -97,11 +96,12 @@ public class WebViewActivity extends AppCompatActivity implements IWebPageView {
 
     private void initTitle() {
         StatusBarUtil.setColor(this, CommonUtils.getColor(R.color.colorTheme), 0);
-        mProgressBar = findViewById(R.id.pb_progress);
         webView = findViewById(R.id.webview_detail);
-        videoFullView = findViewById(R.id.video_fullView);
         mTitleToolBar = findViewById(R.id.title_tool_bar);
         tvGunTitle = findViewById(R.id.tv_gun_title);
+        mProgressBar = findViewById(R.id.pb_progress);
+        mProgressBar.setColor(CommonUtils.getColor(R.color.colorRateRed));
+        mProgressBar.show();
 
         initToolBar();
     }
@@ -132,6 +132,14 @@ public class WebViewActivity extends AppCompatActivity implements IWebPageView {
         }
     }
 
+    /**
+     * 唤起其他app处理
+     */
+    @Override
+    public boolean handleOverrideUrl(String url) {
+        return WebUtil.handleThirdApp(this,mUrl,url);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -147,7 +155,7 @@ public class WebViewActivity extends AppCompatActivity implements IWebPageView {
             case R.id.actionbar_cope:
                 // 复制链接
                 BaseTools.copy(webView.getUrl());
-                ToastUtil.showToast("复制成功");
+                ToastUtil.showToast("已复制到剪贴板");
                 break;
             case R.id.actionbar_open:
                 // 打开链接
@@ -155,9 +163,7 @@ public class WebViewActivity extends AppCompatActivity implements IWebPageView {
                 break;
             case R.id.actionbar_webview_refresh:
                 // 刷新页面
-                if (webView != null) {
-                    webView.reload();
-                }
+                webView.reload();
                 break;
             case R.id.actionbar_collect:
                 // 添加到收藏
@@ -186,7 +192,7 @@ public class WebViewActivity extends AppCompatActivity implements IWebPageView {
         collectModel.collectUrl(mTitle, webView.getUrl(), new WanNavigator.OnCollectNavigator() {
             @Override
             public void onSuccess() {
-                ToastUtil.showToastLong("收藏网址成功");
+                ToastUtil.showToastLong("已添加到收藏");
             }
 
             @Override
@@ -198,7 +204,7 @@ public class WebViewActivity extends AppCompatActivity implements IWebPageView {
 
     @SuppressLint("SetJavaScriptEnabled")
     private void initWebView() {
-        mProgressBar.setVisibility(View.VISIBLE);
+//        mProgressBar.setVisibility(View.VISIBLE);
         WebSettings ws = webView.getSettings();
         // 网页内容的宽度是否可大于WebView控件的宽度
         ws.setLoadWithOverviewMode(false);
@@ -250,7 +256,7 @@ public class WebViewActivity extends AppCompatActivity implements IWebPageView {
 
     @Override
     public void hindProgressBar() {
-        mProgressBar.setVisibility(View.GONE);
+        mProgressBar.hide();
     }
 
     @Override
@@ -283,11 +289,7 @@ public class WebViewActivity extends AppCompatActivity implements IWebPageView {
 
     @Override
     public void startProgress(int newProgress) {
-        mProgressBar.setVisibility(View.VISIBLE);
-        mProgressBar.setProgress(newProgress);
-        if (newProgress == 100) {
-            mProgressBar.setVisibility(View.GONE);
-        }
+        mProgressBar.setWebProgress(newProgress);
     }
 
     @Override
@@ -388,7 +390,7 @@ public class WebViewActivity extends AppCompatActivity implements IWebPageView {
                 hitTestResult.getType() == WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE) {
             // 弹出保存图片的对话框
             new AlertDialog.Builder(WebViewActivity.this)
-                    .setItems(new String[]{"查看大图", "保存图片到相册"}, new DialogInterface.OnClickListener() {
+                    .setItems(new String[]{"发送给朋友", "保存到相册"}, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             String picUrl = hitTestResult.getExtra();
@@ -396,7 +398,7 @@ public class WebViewActivity extends AppCompatActivity implements IWebPageView {
 //                            Log.e("picUrl", picUrl);
                             switch (which) {
                                 case 0:
-                                    ViewBigImageActivity.start(WebViewActivity.this, picUrl, picUrl);
+                                    ShareUtils.shareNetImage(WebViewActivity.this, picUrl);
                                     break;
                                 case 1:
                                     if (!PermissionHandler.isHandlePermission(WebViewActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
@@ -440,11 +442,7 @@ public class WebViewActivity extends AppCompatActivity implements IWebPageView {
      * 直接通过三方浏览器打开时，回退到首页
      */
     public void handleFinish() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            finishAfterTransition();
-        } else {
-            finish();
-        }
+        supportFinishAfterTransition();
         if (!MainActivity.isLaunch) {
             MainActivity.start(this);
         }
@@ -487,7 +485,7 @@ public class WebViewActivity extends AppCompatActivity implements IWebPageView {
             webView.setWebViewClient(null);
             webView.destroy();
             webView = null;
-            mProgressBar.clearAnimation();
+            mProgressBar.reset();
             tvGunTitle.clearAnimation();
             tvGunTitle.clearFocus();
         }

@@ -54,7 +54,7 @@ If you have any questions, please write to [the issue][21] of making you don't u
 
 
 ## See Detail
-> [项目介绍详情](https://github.com/youlookwhat/CloudReader/blob/master/file/Introduction.md) | [细节优化详情](https://github.com/youlookwhat/CloudReader/wiki) | [**版本更新详情(V2.9.1)**](http://jingbin.me/2016/12/30/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97-%E4%BA%91%E9%98%85/)
+> [项目介绍详情](https://github.com/youlookwhat/CloudReader/blob/master/file/Introduction.md) | [细节优化详情](https://github.com/youlookwhat/CloudReader/wiki) | [**版本更新详情(V2.9.5)**](http://jingbin.me/2016/12/30/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97-%E4%BA%91%E9%98%85/)
 
 ### Download
 　[火速跳转](https://fir.im/cloudreader)  
@@ -69,6 +69,15 @@ If you have any questions, please write to [the issue][21] of making you don't u
 　
 
 ### Version
+#### V3.0.0（2019-09-30）
+ - 1、[新增]首页增加公众号栏目
+ - 2、[新增]玩安卓增加积分系统模块
+ - 3、[新增]赞赏云阅页面(每月后7天开启)
+ - 4、[新增]电影详情剧照查看大图使用转场动画
+ - 5、[修复]部分文章作者不显示修正
+ - 6、[优化]屏蔽网页里的广告
+ - 7、[优化]更改收藏图标等ui优化
+
 #### V2.9.5（2019-07-18）
  - 1、[新增]首页增加项目分类api
  - 2、[新增]增加历史搜索记录
@@ -224,7 +233,13 @@ If you have any questions, please write to [the issue][21] of making you don't u
 > 
 > 捐赠后均会被记录到列表中，可以留下友情链接，起到一定的推广作用。感谢大家的信任，[捐赠列表](https://github.com/youlookwhat/CloudReader/blob/master/file/admire.md)。
 
-![](https://raw.githubusercontent.com/youlookwhat/CloudReader/master/file/Wechat-admire_200.jpg)
+
+<img src="https://raw.githubusercontent.com/youlookwhat/CloudReader/master/file/Wechat-admire.jpg" width="250" height="250" /><img src="https://raw.githubusercontent.com/youlookwhat/CloudReader/master/file/alipay-admire.jpg" width="250" height="250"/>
+    
+<!--<center class="half">-->
+<!--</center>-->
+
+<!--![](https://raw.githubusercontent.com/youlookwhat/CloudReader/master/file/Wechat-admire.jpg)![](https://raw.githubusercontent.com/youlookwhat/CloudReader/master/file/alipay-admire.jpg)-->
 
 <!--<img width="200" height=“200” src="https://github.com/youlookwhat/CloudReader/blob/master/file/Wechat-admire.jpeg"></img><img width="200" height=“200” src="https://github.com/youlookwhat/CloudReader/blob/master/file/qq_code.JPG"></img>-->
 
@@ -256,7 +271,7 @@ limitations under the License.
 [2]:https://www.apache.org/licenses/LICENSE-2.0.html
 [3]:https://img.shields.io/badge/API-19%2B-red.svg?style=flat
 [4]:https://android-arsenal.com/api?level=19
-[30]:https://img.shields.io/badge/release-2.9.5-red.svg
+[30]:https://img.shields.io/badge/release-3.0.0-red.svg
 [31]:https://github.com/youlookwhat/CloudReader/releases
 [32]:https://img.shields.io/badge/PRs-welcome-brightgreen.svg
 [33]:https://github.com/youlookwhat/CloudReader/pulls

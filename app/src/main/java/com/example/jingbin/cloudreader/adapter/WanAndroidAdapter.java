@@ -36,6 +36,10 @@ public class WanAndroidAdapter extends BaseRecyclerViewAdapter<ArticlesBean> {
      */
     public boolean isNoShowChapterName = false;
     /**
+     * 不显示作者名字
+     */
+    public boolean isNoShowAuthorName = false;
+    /**
      * 列表中是否显示图片
      */
     private boolean isNoImage = false;
@@ -56,6 +60,10 @@ public class WanAndroidAdapter extends BaseRecyclerViewAdapter<ArticlesBean> {
 
     public void setNoShowChapterName() {
         this.isNoShowChapterName = true;
+    }
+
+    public void setNoShowAuthorName() {
+        isNoShowAuthorName = true;
     }
 
     public void setNoImage(boolean isNoImage) {
@@ -87,7 +95,7 @@ public class WanAndroidAdapter extends BaseRecyclerViewAdapter<ArticlesBean> {
                     protected void onNoDoubleClick(View v) {
                         if (UserUtil.isLogin(activity) && model != null) {
                             // 为什么状态值相反？因为点了之后控件已改变状态
-                            DebugUtil.error("-----binding.vbCollect.isChecked():" + binding.vbCollect.isChecked());
+//                            DebugUtil.error("-----binding.vbCollect.isChecked():" + binding.vbCollect.isChecked());
                             if (!binding.vbCollect.isChecked()) {
                                 model.unCollect(isCollectList, bean.getId(), bean.getOriginId(), new WanNavigator.OnCollectNavigator() {
                                     @Override
@@ -105,7 +113,7 @@ public class WanAndroidAdapter extends BaseRecyclerViewAdapter<ArticlesBean> {
                                             notifyItemRemoved(adapterPosition);
                                         } else {
                                             bean.setCollect(binding.vbCollect.isChecked());
-                                            ToastUtil.showToastLong("已取消收藏");
+//                                            ToastUtil.showToastLong("已取消收藏");
                                         }
                                     }
 
@@ -121,12 +129,12 @@ public class WanAndroidAdapter extends BaseRecyclerViewAdapter<ArticlesBean> {
                                     @Override
                                     public void onSuccess() {
                                         bean.setCollect(true);
-                                        ToastUtil.showToastLong("收藏成功");
+//                                        ToastUtil.showToastLong("收藏成功");
                                     }
 
                                     @Override
                                     public void onFailure() {
-                                        ToastUtil.showToastLong("收藏失败");
+//                                        ToastUtil.showToastLong("收藏失败");
                                         bean.setCollect(false);
                                         notifyItemChanged(getAdapterPosition());
                                     }

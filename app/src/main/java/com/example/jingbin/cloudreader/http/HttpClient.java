@@ -2,9 +2,9 @@ package com.example.jingbin.cloudreader.http;
 
 import com.example.http.HttpUtils;
 import com.example.http.utils.BuildFactory;
+import com.example.jingbin.cloudreader.bean.CoinBean;
 import com.example.jingbin.cloudreader.bean.CollectUrlBean;
 import com.example.jingbin.cloudreader.bean.ComingFilmBean;
-import com.example.jingbin.cloudreader.bean.FilmDetailBasicBean;
 import com.example.jingbin.cloudreader.bean.FilmDetailBean;
 import com.example.jingbin.cloudreader.bean.FrontpageBean;
 import com.example.jingbin.cloudreader.bean.GankIoDataBean;
@@ -15,6 +15,8 @@ import com.example.jingbin.cloudreader.bean.MtimeFilmeBean;
 import com.example.jingbin.cloudreader.bean.UpdateBean;
 import com.example.jingbin.cloudreader.bean.book.BookBean;
 import com.example.jingbin.cloudreader.bean.book.BookDetailBean;
+import com.example.jingbin.cloudreader.bean.wanandroid.BaseResultBean;
+import com.example.jingbin.cloudreader.bean.wanandroid.CoinUserInfoBean;
 import com.example.jingbin.cloudreader.bean.wanandroid.HomeListBean;
 import com.example.jingbin.cloudreader.bean.wanandroid.LoginBean;
 import com.example.jingbin.cloudreader.bean.wanandroid.NaviJsonBean;
@@ -22,6 +24,10 @@ import com.example.jingbin.cloudreader.bean.wanandroid.QsbkListBean;
 import com.example.jingbin.cloudreader.bean.wanandroid.SearchTagBean;
 import com.example.jingbin.cloudreader.bean.wanandroid.TreeBean;
 import com.example.jingbin.cloudreader.bean.wanandroid.WanAndroidBannerBean;
+import com.example.jingbin.cloudreader.bean.wanandroid.WxarticleDetailItemBean;
+import com.example.jingbin.cloudreader.bean.wanandroid.WxarticleItemBean;
+
+import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
@@ -322,4 +328,35 @@ public interface HttpClient {
     @GET("article/listproject/{page}/json")
     Observable<HomeListBean> getProjectList(@Path("page") int page);
 
+    /**
+     * 获取个人积分，需要登录后访问
+     */
+    @GET("lg/coin/userinfo/json")
+    Observable<BaseResultBean<CoinUserInfoBean>> getCoinUserInfo();
+
+    /**
+     * 获取积分排行
+     */
+    @GET("coin/rank/{page}/json")
+    Observable<BaseResultBean<CoinBean>> getCoinRank(@Path("page") int page);
+
+    /**
+     * 获取积分值变化详情
+     */
+    @GET("lg/coin/list/{page}/json")
+    Observable<BaseResultBean<CoinBean>> getCoinLog(@Path("page") int page);
+
+    /**
+     * 获取公众号列表
+     */
+    @GET("wxarticle/chapters/json")
+    Observable<BaseResultBean<List<WxarticleItemBean>>> getWxarticle();
+
+    /**
+     * 单个公众号数据
+     *
+     * @param page 1开始
+     */
+    @GET("wxarticle/list/{id}/{page}/json")
+    Observable<BaseResultBean<WxarticleDetailItemBean>> getWxarticleDetail(@Path("id") int id, @Path("page") int page);
 }
